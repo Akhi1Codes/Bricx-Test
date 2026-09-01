@@ -62,15 +62,20 @@ export default function ClientWrapper({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close nav on pathname change
   useEffect(() => {
     setNavOpen(false);
-    document.body.style.overflow = '';
   }, [pathname]);
 
-  // Page-specific initialization (FAQ accordion, scroll reveal, slider)
   useEffect(() => {
-    // 1. FAQ Accordion initialization
+    document.body.style.overflow = navOpen ? 'hidden' : '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [navOpen]);
+
+  useEffect(() => {
+
     const faqItems = document.querySelectorAll('.faq-item-card');
 
     faqItems.forEach(item => {
@@ -82,7 +87,6 @@ export default function ClientWrapper({
       const handler = () => {
         const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
 
-        // Close all
         faqItems.forEach(el => {
           const c = el.querySelector('.faq-content') as HTMLElement;
           const ic = el.querySelector('.faq-icon') as HTMLElement | null;
@@ -96,7 +100,6 @@ export default function ClientWrapper({
           }
         });
 
-        // Open clicked (unless it was already open)
         if (!isOpen) {
           content.style.maxHeight = content.scrollHeight + 'px';
           content.style.marginTop = '12px';
@@ -110,7 +113,6 @@ export default function ClientWrapper({
       trigger.addEventListener('click', handler);
     });
 
-    // 2. IntersectionObserver for Reveal on Scroll
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     let observer: IntersectionObserver | null = null;
     
@@ -131,7 +133,6 @@ export default function ClientWrapper({
       revealElements.forEach(el => el.classList.add('revealed'));
     }
 
-    // 3. Cinematic Hero Ken Burns and Parallax
     const heroBg = document.querySelector('.advisory-hero-bg') as HTMLElement;
     let parallaxHandler: (() => void) | null = null;
     let tagTimeout: number | null = null;
@@ -174,10 +175,8 @@ export default function ClientWrapper({
       };
 
       window.addEventListener('scroll', parallaxHandler, { passive: true });
-
     }
 
-    // 4. Featured Slider Navigation
     const track = document.getElementById('slider-track');
     const prevBtn = document.getElementById('slider-prev-btn');
     const nextBtn = document.getElementById('slider-next-btn');
@@ -222,12 +221,10 @@ export default function ClientWrapper({
       };
       window.addEventListener('resize', resizeHandler);
 
-      // Save listeners for cleanup
       nextBtn.addEventListener('click', handleNext);
       prevBtn.addEventListener('click', handlePrev);
     }
 
-    // Cleanup listeners
     return () => {
       if (observer) {
         revealElements.forEach(el => observer?.unobserve(el));
@@ -250,22 +247,14 @@ export default function ClientWrapper({
     };
   }, [pathname]);
 
-  // Handle mobile nav body scroll locking
   const closeMobileNav = () => {
     setNavOpen(false);
-    document.body.style.overflow = '';
   };
 
   const toggleMobileNav = () => {
-    if (navOpen) {
-      closeMobileNav();
-    } else {
-      setNavOpen(true);
-      document.body.style.overflow = 'hidden';
-    }
+    setNavOpen((isOpen) => !isOpen);
   };
 
-  // Keyboard navigation escape close
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -278,7 +267,6 @@ export default function ClientWrapper({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Handle Newsletter Submit
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -317,18 +305,14 @@ export default function ClientWrapper({
     }
   };
 
-  // Handle Modal Contact Submit
   const handleModalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const errors: typeof modalErrors = {};
     let hasError = false;
-
     if (!modalName.trim()) {
       errors.name = true;
       hasError = true;
     }
-
     const email = modalEmail.trim();
     if (!email) {
       errors.email = true;
@@ -396,9 +380,15 @@ export default function ClientWrapper({
     );
   };
 
-  // Determine dynamic classes for header based on pathname
   const isHomePage = pathname === '/';
+  const isAdvisoryPage = pathname === '/advisory';
+  const isInvestmentPage = pathname === '/investment-opportunities';
+  const isLandPage = pathname === '/land-opportunities';
+  const isBlogPage = pathname?.startsWith('/blog') ?? false;
   let headerClass = isHomePage ? 'home-header' : 'inner-header';
+  if (isAdvisoryPage || isInvestmentPage || isLandPage || isBlogPage) {
+    headerClass += ` ${isInvestmentPage ? 'investment-header' : ''} !h-[110px] !bg-[#0d1e36]`;
+  }
   const customHeaderPadding = isHomePage
     ? (headerScrolled ? '12px 0' : '20px 0')
     : (headerScrolled ? '10px 0' : '14px 0');
@@ -444,7 +434,7 @@ export default function ClientWrapper({
             </div>
 
             <div className="nav-actions">
-              <a href="tel:+919070504020" className="nav-cta" id="header-phone-cta">
+              <a href="tel:+919070504020" className={isAdvisoryPage || isInvestmentPage || isLandPage || isBlogPage ? 'nav-cta !text-white' : 'nav-cta'} id="header-phone-cta">
                 <span>+91 90 70 50 40 20</span>
               </a>
 
@@ -567,12 +557,12 @@ export default function ClientWrapper({
                 Bengaluru, Karnataka 560025
               </p>
               <a
-                className="footer-map-link"
+                className="footer-map-cta"
                 href="https://share.google/K39DULny7X7xvie1S"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <svg className="footer-map-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <svg className="footer-map-cta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" />
                   <circle cx="12" cy="9" r="2.25" />
                 </svg>
@@ -668,36 +658,9 @@ export default function ClientWrapper({
               <i className="fas fa-times"></i>
             </button>
 
-            <div className="modal-grid-container contact-grid modal-contact-layout">
-              <div className="contact-cards-container modal-left-column">
-                <div className="contact-office-logo-wrap" aria-label="Bricx.ai logo">
-                  <div className="contact-office-logo">BRICX.AI</div>
-                </div>
-
-                <div className="contact-card-item child-card contact-direct-card">
-                  <div className="blog-category">Bricx Headquarters</div>
-                  <h3>Direct Coordination</h3>
-                  <p style={{ marginBottom: '1rem', color: 'var(--text-charcoal)' }}>
-                    Phone: <a href="tel:+919070504020" style={{ color: 'var(--accent-olive)', fontWeight: 600 }}>90 70 50 40 20</a>
-                  </p>
-                  <p style={{ color: 'var(--text-charcoal)', marginBottom: '1rem' }}>
-                    Email: <a href="mailto:hello@bricx.ai" style={{ color: 'var(--accent-olive)', fontWeight: 600 }}>hello@bricx.ai</a>
-                  </p>
-                  <p style={{ color: 'var(--text-charcoal)', marginBottom: 0 }}>
-                    Web: <a href="https://bricx.ai" style={{ color: 'var(--accent-olive)', fontWeight: 600 }}>bricx.ai</a>
-                  </p>
-                </div>
-
-                <div className="contact-card-item child-card contact-unified-note" style={{ backgroundColor: 'var(--bg-cream)', borderColor: 'var(--accent-gold)' }}>
-                  <h3>No sales calls. No pressure. Just a conversation.</h3>
-                  <p style={{ lineHeight: 1.6, color: 'var(--text-charcoal)', margin: 0 }}>
-                    Our B2B advisory services operate without sales targets, ensuring you receive conflict free spatial planning and capital underwriting counsel.
-                  </p>
-                </div>
-              </div>
-
-              <div className="conversation-card modal-right-column" style={{ backgroundColor: 'var(--bg-white)' }}>
-                <div className="blog-category">Request Consultation</div>
+            <div className="contact-modal-content">
+              <section className="contact-modal-form-section" aria-labelledby="contact-modal-title">
+               
                 <h2 id="contact-modal-title" className="contact-form-heading" style={{ marginBottom: '1.1rem', fontSize: '2rem' }}>Start the Conversation</h2>
 
                 <form id="contact-modal-form" onSubmit={handleModalSubmit} noValidate>
@@ -777,7 +740,7 @@ export default function ClientWrapper({
                     <button type="submit" className="btn-submit" id="modal-submit-btn">Request Consultation</button>
                   </div>
                 </form>
-              </div>
+              </section>
             </div>
 
             {/* State Overlay */}
