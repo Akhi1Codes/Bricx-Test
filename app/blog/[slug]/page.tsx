@@ -143,7 +143,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
       <section className="blog-editorial-header" style={{ padding: '140px 0 2rem 0', backgroundColor: 'var(--bg-cream)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <div style={{ textAlign: 'left', margin: '0 auto 2rem auto', maxWidth: '900px', padding: '0 1rem' }}>
-            <Link href="/blog" className="blog-back-link" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s ease' }}>
+            <Link href="/blog" className=" blog-back-link hover:!text-white !inline-flex !items-center !gap-2 !py-2 !min-h-[44px] !no-underline !text-[0.75rem] !font-semibold !tracking-[0.15em] !uppercase !text-[var(--text-muted)] !transition-colors !duration-200 !ease-in-out
+">
               &larr; Back to Blog
             </Link>
           </div>
@@ -151,7 +152,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
             {post.publisher}{post.category && ` • ${post.category}`}
           </div>
           
-          <h1 className="blog-editorial-title" style={{ fontFamily: "'Cinzel', serif", fontWeight: 400, fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.2, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--primary-obsidian)', margin: '0 auto 1.5rem auto', maxWidth: '900px' }}>
+          <h1 className="blog-editorial-title" style={{ fontFamily: "'Cinzel', serif", fontWeight: 400, fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.2, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'white', margin: '0 auto 1.5rem auto', maxWidth: '900px' }}>
             {post.title}
           </h1>
         </div>
@@ -176,7 +177,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
         {post.content.slice(1).map((para, index) => {
           const isHtml = para.trim().startsWith('<');
-          const loopIndex = index + 1; // 1-indexed for the slice(1) map
+          const loopIndex = index + 1;
 
           return (
             <React.Fragment key={index}>
@@ -185,8 +186,6 @@ export default async function BlogDetailPage({ params }: PageProps) {
               ) : (
                 <div className="blog-editorial-paragraph" dangerouslySetInnerHTML={{ __html: para }} />
               )}
-
-              {/* Insert Quote Block after the first paragraph in slice(1) (so paragraph 2 total) */}
               {loopIndex === 1 && post.quote && (
                 <div className="blog-quote-block" style={{ borderLeft: '3px solid var(--accent-gold)', paddingLeft: '2rem', margin: '3rem 0', fontStyle: 'italic' }}>
                   <p className="blog-quote-text" style={{ fontFamily: "'Cinzel', serif", fontSize: '1.35rem', lineHeight: '1.6', color: 'var(--primary-obsidian)', marginBottom: '0.8rem' }}>
@@ -232,7 +231,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
           <div className="blog-cta-panel" style={{ background: 'rgba(14, 24, 42, 0.45)', padding: '3.5rem 3rem', textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.08)', margin: '4.5rem 0', boxShadow: '0 30px 60px rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
             <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.8rem', color: '#ffffff', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '1.25rem' }}>{post.cta_title}</h3>
             <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '1.05rem', lineHeight: '1.7', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 300, marginBottom: '2rem', maxWidth: '680px', marginLeft: 'auto', marginRight: 'auto' }}>{post.cta_text}</p>
-            <a href={post.cta_link} className="blog-cta-btn">{post.cta_button_text}</a>
+            <a href={post.cta_link} className="blog-cta-btn" >{post.cta_button_text}</a>
           </div>
         )}
 

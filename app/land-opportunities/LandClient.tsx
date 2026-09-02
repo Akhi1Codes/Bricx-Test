@@ -95,7 +95,7 @@ export default function LandClient() {
               <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-olive)', marginBottom: '8px' }}>
                 Time and Exit
               </div>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.88rem', marginBottom: 0, textAlign: 'left' }}>
+              <p style={{ color: 'var(--text-muted)',lineHeight: 1.6, fontSize: '0.88rem', marginBottom: 0, textAlign: 'left' }}>
                 Land needs patience. North Bangalore, particularly Hebbal and the airport corridor, offers strong land
                 appreciation potential in 2026. Airport proximity, Metro expansion expected within 24 months, GCC cluster
                 development, and current underdevelopment relative to demand create compounding appreciation drivers. We help

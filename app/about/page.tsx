@@ -87,7 +87,7 @@ export default function AboutPage() {
                 Krupesh Sanghani | Founder
               </h2>
               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8', color: 'var(--text-charcoal)', marginBottom: '1.5rem', fontWeight: 300 }}>
-                Krupesh brings Decades of direct deal experience across commercial leasing and investment sale of
+                Krupesh brings decades of direct deal experience across commercial leasing and investment sale of
                 commercial properties in Bengaluru. His understanding of the market spans managed offices, coworking, land
                 aggregation, and income producing assets, built through hands on work with occupiers, operators, and
                 investors across Bangalore.
