@@ -58,7 +58,6 @@ export default function ClientWrapper({
     window.addEventListener('scroll', handleScroll, { passive: true });
     // Initial check
     handleScroll();
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -220,7 +219,6 @@ export default function ClientWrapper({
         track.style.transform = 'translate3d(0, 0, 0)';
       };
       window.addEventListener('resize', resizeHandler);
-
       nextBtn.addEventListener('click', handleNext);
       prevBtn.addEventListener('click', handlePrev);
     }
@@ -389,9 +387,8 @@ export default function ClientWrapper({
   if (isAdvisoryPage || isInvestmentPage || isLandPage || isBlogPage) {
     headerClass += ` ${isInvestmentPage ? 'investment-header' : ''} !h-[110px] !bg-[#0d1e36]`;
   }
-  const customHeaderPadding = isHomePage
-    ? (headerScrolled ? '12px 0' : '20px 0')
-    : (headerScrolled ? '10px 0' : '14px 0');
+
+  const customHeaderPadding = isHomePage ? '20px 0' : '14px 0';
   const customHeaderShadow = headerScrolled ? '0 4px 20px rgba(33, 40, 8, 0.04)' : 'none';
 
   if (pathname?.startsWith('/blog')) {

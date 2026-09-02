@@ -381,9 +381,7 @@ header {
   }
 }
 
-/* ==========================================================
-   Infinite Marquee Typography
-   ========================================================== */
+
 .marquee-container {
   width: 100%;
   overflow: hidden;
@@ -5761,7 +5759,6 @@ img {
   }
 }
 
-/* Home page only: compact and aligned mobile header */
 @media (max-width: 768px) {
   #main-header.home-header {
     padding: 0 !important;
@@ -5816,7 +5813,8 @@ img {
 }
 
 #main-header.inner-header {
-  position: absolute;
+  /* Keep the positioning mode stable when `.scrolled` is added. */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -5845,25 +5843,22 @@ img {
 }
 
 
-
-#main-header.inner-header .mobile-toggle span {
-  background-color: var(--text-white) !important;
-}
-
-
-
 #main-header.inner-header.scrolled {
   position: fixed;
-  background: rgba(250, 248, 245, 0.95);
+  background-color: #0d1e36 !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-medium);
 }
 
-
-#main-header.inner-header.scrolled .nav-actions .nav-cta,
+#main-header.inner-header.scrolled .nav-actions .mobile-toggle span ,
 #main-header.inner-header.scrolled .nav-actions .nav-cta:hover {
   color: var(--text-charcoal) !important;
+}
+
+
+#main-header.inner-header.scrolled .mobile-toggle span {
+background: white !important;
 }
 
 
@@ -6216,9 +6211,6 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
   }
 }
 
-/* ==========================================================
-   Mobile Footer Redesign (keep desktop unchanged)
-   ========================================================== */
 @media (max-width: 768px) {
   .premium-footer {
     padding: 56px 24px !important;
@@ -6447,7 +6439,7 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
   }
 }
 
-/* Service pages: make the hero begin exactly at the bottom of the navbar. */
+
 .advisory-showcase-hero,
 .investment-showcase-hero,
 .land-showcase-hero {
@@ -6477,7 +6469,7 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
   }
 }
 
-/* Home opening sequence mirrors the deployed experience. */
+
 @keyframes homeHeroFadeUp {
   from {
     opacity: 0;
@@ -6558,9 +6550,6 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
     animation: none;
   }
 }
-
-
-
 
 #main-header.home-header {
   position: absolute;
@@ -6665,17 +6654,15 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
 #main-header.home-header.scrolled .nav-cta {
   background-color: transparent !important;
   color: var(--text-charcoal) !important;
-
 }
 
 #main-header.home-header.scrolled .nav-cta:hover {
   background-color: transparent !important;
   color: var(--text-charcoal) !important;
-
 }
 
 #main-header.home-header.scrolled .mobile-toggle span {
-  background-color: var(--primary-obsidian) !important;
+  background: var(--text-charcoal) !important;
 }
 
 
@@ -6704,3 +6691,6 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
   color: var(--text-white) !important;
   border-color: var(--accent-olive) !important;
 }
+
+
+

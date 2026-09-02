@@ -32,9 +32,9 @@ function AnimatedStat({ value, label, type }: { value: number; label: string; ty
 
   useEffect(() => {
     let animationFrame = 0;
-    let startTime: number | null = null;
-    const duration = 1200;
+    let startTime:null | number = null;
 
+    const duration = 1800;
     const animate = (timestamp: number) => {
       if (startTime === null) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -47,15 +47,11 @@ function AnimatedStat({ value, label, type }: { value: number; label: string; ty
         setDisplayValue(value);
       }
     };
-
     animationFrame = requestAnimationFrame(animate);
-
     return () => cancelAnimationFrame(animationFrame);
   }, [value]);
 
-  const renderedValue = type === 'decimal'
-    ? `${displayValue.toFixed(1)}M+`
-    : `${Math.round(displayValue)}+`;
+  const renderedValue = type === 'decimal' ? `${displayValue.toFixed(1)}M+` : `${Math.round(displayValue)}+`;
 
   return (
     <div className="!px-6 !py-1 !text-center max-md:!flex max-md:!w-full max-md:!items-baseline max-md:!justify-between max-md:!px-0 max-md:!py-2">
@@ -180,7 +176,7 @@ export default function HomeClient({ latestBlogs }: HomeClientProps) {
               <article
                 key={post.id}
                 className="group reveal-on-scroll !flex !h-full !flex-col !border !border-[var(--border-medium)] !bg-[var(--bg-cream)] !transition-all !duration-400 !ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5! hover:border-[var(--accent-gold)]! hover:shadow-[0_20px_40px_rgba(14,24,42,0.06)]!">
-                <Link href={`/blog/${post.slug}`}
+                <Link href = {`/blog/${post.slug}`}
                   className="!block !overflow-hidden">
                   <div className="!relative !h-60 !overflow-hidden">
                     <Image
