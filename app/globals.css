@@ -1298,6 +1298,14 @@ select.form-control {
   filter: blur(0) !important;
 }
 
+/* Hovering the glass card zooms its background without moving the card. */
+@media (hover: hover) and (pointer: fine) {
+  .home-service-panel:has(.home-service-card:hover) .home-service-background {
+    transform: scale(1.03) !important;
+  }
+}
+
+
 /* Stagger Entrance Sequencer */
 .stagger-item {
   opacity: 0 !important;
@@ -6568,7 +6576,7 @@ body:has(.investment-page-clean) #main-header.inner-header.scrolled {
 #main-header.home-header .mobile-toggle span {
   display: block;
   width: 20px;
-  height: 1.5px;
+  height: 2px;
   background-color: var(--text-white) !important;
   transition: var(--transition-snappy);
 }
