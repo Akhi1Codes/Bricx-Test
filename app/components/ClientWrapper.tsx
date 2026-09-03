@@ -21,11 +21,11 @@ export default function ClientWrapper({
     { href: '/blog', desktopLabel: 'Bricx Blogs', mobileLabel: 'Bricx Blogs', isActive: pathname?.startsWith('/blog') ?? false },
     { href: '/contact-us', desktopLabel: 'Contact', mobileLabel: 'Contact', isActive: pathname === '/contact-us' }
   ];
-  
+
   // Navigation states
   const [navOpen, setNavOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
-  
+
   // Newsletter form states
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -38,7 +38,7 @@ export default function ClientWrapper({
   const [modalMobile, setModalMobile] = useState('');
   const [modalInterests, setModalInterests] = useState<string[]>([]);
   const [modalMessage, setModalMessage] = useState('');
-  
+
   const [modalErrors, setModalErrors] = useState<{
     name?: boolean;
     email?: boolean;
@@ -114,7 +114,7 @@ export default function ClientWrapper({
 
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     let observer: IntersectionObserver | null = null;
-    
+
     if ('IntersectionObserver' in window) {
       observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -141,7 +141,7 @@ export default function ClientWrapper({
     if (heroBg) {
       const ENTRY_MS = 3500;
       const heroTag = document.querySelector('.advisory-hero .blog-category');
-      
+
       tagTimeout = window.setTimeout(() => {
         heroTag?.classList.add('tag-underlined');
       }, 500);
@@ -371,8 +371,8 @@ export default function ClientWrapper({
   };
 
   const handleInterestChange = (interest: string) => {
-    setModalInterests(prev => 
-      prev.includes(interest) 
+    setModalInterests(prev =>
+      prev.includes(interest)
         ? prev.filter(i => i !== interest)
         : [...prev, interest]
     );
@@ -409,15 +409,15 @@ export default function ClientWrapper({
       <a href="#main-content" className="skip-to-content">Skip to main content</a>
 
       {/* Mobile Nav Backdrop Overlay */}
-      <div 
-        className={`nav-backdrop ${navOpen ? 'active' : ''}`} 
+      <div
+        className={`nav-backdrop ${navOpen ? 'active' : ''}`}
         id="nav-backdrop"
         onClick={closeMobileNav}
       ></div>
 
       {/* Sticky Navigation Header */}
-      <header 
-        id="main-header" 
+      <header
+        id="main-header"
         className={headerClass}
         style={{
           padding: customHeaderPadding,
@@ -435,10 +435,10 @@ export default function ClientWrapper({
                 <span>+91 90 70 50 40 20</span>
               </a>
 
-              <button 
-                type="button" 
-                className={`mobile-toggle ${navOpen ? 'open' : ''}`} 
-                id="mobile-toggle" 
+              <button
+                type="button"
+                className={`mobile-toggle ${navOpen ? 'open' : ''}`}
+                id="mobile-toggle"
                 aria-label="Toggle Navigation Menu"
                 aria-expanded={navOpen}
                 aria-controls="nav-menu"
@@ -603,10 +603,10 @@ export default function ClientWrapper({
       </footer>
 
       {/* Floating Contact Button */}
-      <button 
-        type="button" 
-        id="floating-contact-btn" 
-        aria-label="Enquire" 
+      <button
+        type="button"
+        id="floating-contact-btn"
+        aria-label="Enquire"
         title="Enquire"
         onClick={() => setModalOpen(true)}
       >
@@ -629,26 +629,26 @@ export default function ClientWrapper({
       {/* Contact Modal Overlay & Popup */}
       {modalOpen && (
         <>
-          <div 
-            className="contact-modal-overlay open" 
-            id="contact-modal-overlay" 
+          <div
+            className="contact-modal-overlay open"
+            id="contact-modal-overlay"
             role="presentation"
             onClick={() => setModalOpen(false)}
           ></div>
-          
-          <div 
-            className="contact-modal open" 
-            id="contact-modal" 
-            role="dialog" 
-            aria-modal="true" 
-            aria-labelledby="contact-modal-title" 
-            style={{ maxWidth: '900px', width: '95%' }}
+
+          <div
+            className="contact-modal open"
+            id="contact-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-modal-title"
+            style={{ maxWidth: '1000px', width: '95%' }}
           >
-            <button 
-              type="button" 
-              className="contact-modal-close" 
-              id="contact-modal-close" 
-              aria-label="Close" 
+            <button
+              type="button"
+              className="contact-modal-close"
+              id="contact-modal-close"
+              aria-label="Close"
               style={{ position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer', color: 'var(--text-charcoal)', zIndex: 10 }}
               onClick={() => setModalOpen(false)}
             >
@@ -656,88 +656,127 @@ export default function ClientWrapper({
             </button>
 
             <div className="contact-modal-content">
-              <section className="contact-modal-form-section" aria-labelledby="contact-modal-title">
-               
-                <h2 id="contact-modal-title" className="contact-form-heading" style={{ marginBottom: '1.1rem', fontSize: '2rem' }}>Start the Conversation</h2>
+              <div className="modal-grid-container modal-contact-layout">
 
-                <form id="contact-modal-form" onSubmit={handleModalSubmit} noValidate>
-                  <div className={`form-group ${modalErrors.name ? 'has-error' : ''}`} id="grp-name">
-                    <label htmlFor="modal-name">Full Name <span style={{ color: 'red' }}>*</span></label>
-                    <input
-                      type="text"
-                      id="modal-name"
-                      className="form-control"
-                      placeholder="Name*"
-                      autoComplete="name"
-                      value={modalName}
-                      onChange={(e) => setModalName(e.target.value)}
-                    />
-                    {modalErrors.name && (
-                      <span className="error-msg" style={{ color: '#c93b3b', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>Please enter your name.</span>
-                    )}
-                  </div>
-
-                  <div className={`form-group ${modalErrors.email || modalErrors.emailInvalid ? 'has-error' : ''}`} id="grp-email">
-                    <label htmlFor="modal-email">Business Email <span style={{ color: 'red' }}>*</span></label>
-                    <input
-                      type="email"
-                      id="modal-email"
-                      className="form-control"
-                      placeholder="Email*"
-                      autoComplete="email"
-                      value={modalEmail}
-                      onChange={(e) => setModalEmail(e.target.value)}
-                    />
-                    {(modalErrors.email || modalErrors.emailInvalid) && (
-                      <span className="error-msg" style={{ color: '#c93b3b', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>
-                        {modalErrors.emailInvalid ? 'Please enter a valid email address.' : 'Please enter your email address.'}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className={`form-group ${modalErrors.mobileInvalid ? 'has-error' : ''}`} id="grp-mobile">
-                    <label htmlFor="modal-mobile">Phone Number</label>
-                    <input
-                      type="tel"
-                      id="modal-mobile"
-                      className="form-control"
-                      placeholder="Phone Number"
-                      autoComplete="tel"
-                      value={modalMobile}
-                      onChange={(e) => setModalMobile(e.target.value)}
-                    />
-                    {modalErrors.mobileInvalid && (
-                      <span className="error-msg" style={{ color: '#c93b3b', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>Please enter a valid phone number (min. 10 digits).</span>
-                    )}
-                  </div>
-
-                  <div className="form-group" id="grp-interest">
-                    <label style={{ display: 'block', marginBottom: '8px' }}>Area of Interest</label>
-                    <div className="checkbox-group contact-interest-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px 18px', marginBottom: '12px' }}>
-                      <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
-                        <input type="checkbox" name="interest" value="Leasing Advisory" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Leasing Advisory')} onChange={() => handleInterestChange('Leasing Advisory')} />
-                        Occupier Leasing Advisory
-                      </label>
-                      <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
-                        <input type="checkbox" name="interest" value="Income Investments" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Income Investments')} onChange={() => handleInterestChange('Income Investments')} />
-                        Income &amp; Portfolio Placements
-                      </label>
-                      <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
-                        <input type="checkbox" name="interest" value="Land Opportunities" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Land Opportunities')} onChange={() => handleInterestChange('Land Opportunities')} />
-                        Land Plot Development
-                      </label>
-                      <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
-                        <input type="checkbox" name="interest" value="Other" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Other')} onChange={() => handleInterestChange('Other')} />
-                        General B2B Inquiry
-                      </label>
+                {/* LEFT — Advisory introduction */}
+                <div className="modal-left-column">
+                    <div className="modal-left-column">
+                  <div className="modal-left-panel">
+                    <div className="modal-left-card modal-hq-card">
+                      <span className="modal-hq-label">Bricx Headquarters</span>
+                      <h3 className="modal-hq-heading">Direct Coordination</h3>
+                      <div className="modal-hq-list">
+                        <p>
+                          Phone: <a href="tel:+919070504020"><strong>90 70 50 40 20</strong></a>
+                        </p>
+                        <p>
+                          Email: <a href="mailto:hello@bricx.ai"><strong>hello@bricx.ai</strong></a>
+                        </p>
+                        <p>
+                          Web: <a href="https://bricx.ai" target="_blank" rel="noopener noreferrer"><strong>bricx.ai</strong></a>
+                        </p>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="modal-form-actions" style={{ marginTop: '4px' }}>
-                    <button type="submit" className="btn-submit" id="modal-submit-btn">Request Consultation</button>
+                </div>
+                
+                  <div className="modal-left-panel">
+                    <div className="modal-left-card modal-hq-card modal-advisory-card">
+                      <h3 className="modal-hq-heading">No sales calls. No pressure. Just a conversation.</h3>
+                      <p className="modal-advisory-copy">
+                        Our B2B advisory services operate without sales targets, ensuring you receive conflict free spatial planning and capital underwriting counsel.
+                      </p>
+                    </div>
                   </div>
-                </form>
-              </section>
+                </div>
+
+                {/* RIGHT — Contact form */}
+                <div className="modal-right-column">
+                  <section className="contact-modal-form-section" aria-labelledby="contact-modal-title">
+
+                    <h2 id="contact-modal-title" className="contact-form-heading" style={{ marginBottom: '1.1rem', fontSize: '2rem' }}>Start the Conversation</h2>
+
+                    <form id="contact-modal-form" onSubmit={handleModalSubmit} noValidate>
+                      <div className={`form-group ${modalErrors.name ? 'has-error' : ''}`} id="grp-name">
+                        <label htmlFor="modal-name">Full Name <span style={{ color: 'red' }}>*</span></label>
+                        <input
+                          type="text"
+                          id="modal-name"
+                          className="form-control"
+                          placeholder="Name*"
+                          autoComplete="name"
+                          value={modalName}
+                          onChange={(e) => setModalName(e.target.value)}
+                        />
+                        {modalErrors.name && (
+                          <span className="error-msg" style={{ color: '#c93b3b', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>Please enter your name.</span>
+                        )}
+                      </div>
+
+                      <div className={`form-group ${modalErrors.email || modalErrors.emailInvalid ? 'has-error' : ''}`} id="grp-email">
+                        <label htmlFor="modal-email">Business Email <span style={{ color: 'red' }}>*</span></label>
+                        <input
+                          type="email"
+                          id="modal-email"
+                          className="form-control"
+                          placeholder="Email*"
+                          autoComplete="email"
+                          value={modalEmail}
+                          onChange={(e) => setModalEmail(e.target.value)}
+                        />
+                        {(modalErrors.email || modalErrors.emailInvalid) && (
+                          <span className="error-msg" style={{ color: '#c93b3b', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>
+                            {modalErrors.emailInvalid ? 'Please enter a valid email address.' : 'Please enter your email address.'}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className={`form-group ${modalErrors.mobileInvalid ? 'has-error' : ''}`} id="grp-mobile">
+                        <label htmlFor="modal-mobile">Phone Number</label>
+                        <input
+                          type="tel"
+                          id="modal-mobile"
+                          className="form-control"
+                          placeholder="Phone Number"
+                          autoComplete="tel"
+                          value={modalMobile}
+                          onChange={(e) => setModalMobile(e.target.value)}
+                        />
+                        {modalErrors.mobileInvalid && (
+                          <span className="error-msg" style={{ color: '#c93b3b', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>Please enter a valid phone number (min. 10 digits).</span>
+                        )}
+                      </div>
+
+                      <div className="form-group" id="grp-interest">
+                        <label style={{ display: 'block', marginBottom: '8px' }}>Area of Interest</label>
+                        <div className="checkbox-group contact-interest-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px 18px', marginBottom: '12px' }}>
+                          <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
+                            <input type="checkbox" name="interest" value="Leasing Advisory" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Leasing Advisory')} onChange={() => handleInterestChange('Leasing Advisory')} />
+                            Occupier Leasing Advisory
+                          </label>
+                          <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
+                            <input type="checkbox" name="interest" value="Income Investments" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Income Investments')} onChange={() => handleInterestChange('Income Investments')} />
+                            Income &amp; Portfolio Placements
+                          </label>
+                          <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
+                            <input type="checkbox" name="interest" value="Land Opportunities" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Land Opportunities')} onChange={() => handleInterestChange('Land Opportunities')} />
+                            Land Plot Development
+                          </label>
+                          <label className="checkbox-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: 'var(--text-charcoal)', cursor: 'pointer', textTransform: 'none', letterSpacing: 'normal', fontWeight: 'normal' }}>
+                            <input type="checkbox" name="interest" value="Other" style={{ accentColor: 'var(--accent-gold)', width: '18px', height: '18px', cursor: 'pointer' }} checked={modalInterests.includes('Other')} onChange={() => handleInterestChange('Other')} />
+                            General B2B Inquiry
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="modal-form-actions" style={{ marginTop: '4px' }}>
+                        <button type="submit" className="btn-submit" id="modal-submit-btn">Request Consultation</button>
+                      </div>
+                    </form>
+                  </section>
+                </div>
+
+              </div>
             </div>
 
             {/* State Overlay */}
