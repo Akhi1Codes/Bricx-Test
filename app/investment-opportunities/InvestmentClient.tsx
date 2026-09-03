@@ -25,7 +25,7 @@ export default function InvestmentClient() {
           <div className="!relative !h-[360px] !w-full md:!h-[520px]">
             <Image src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop" alt="Off-Market Income Placements" fill sizes="(max-width: 767px) 100vw, 50vw" className="!object-cover" unoptimized priority />
           </div>
-          <div className="!flex !min-h-[430px] !w-full !flex-col !justify-center !bg-[var(--bg-white)] !px-7 !py-12 sm:!px-12 md:!h-[520px] md:!px-[55px]">
+          <div className="!flex !min-h-[430px] !w-full !flex-col !justify-center !bg-[var(--bg-white)] !px-7  sm:!px-12 md:!h-[520px] md:!px-[55px]">
             <span className={`${labelClass} !mb-3`}>Private Exclusives</span>
             <h1 className="!mb-5 !max-w-[600px] !font-[var(--font-heading)] !text-[clamp(2rem,3vw,2.4rem)] !font-extrabold !leading-[1.08] !tracking-[-0.025em] !text-[var(--primary-obsidian)]">Commercial Property Investment Advisory in Bangalore</h1>
             <h2 className="!mb-5 !max-w-[600px] !font-[var(--font-heading)] !text-[1rem] !font-semibold !uppercase !leading-[1.5] !tracking-[0.025em] !text-[var(--primary-obsidian)]">Buy Side. Sell Side. Capital Markets Discipline.</h2>

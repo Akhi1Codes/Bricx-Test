@@ -34,7 +34,7 @@ function AnimatedStat({ value, label, type }: { value: number; label: string; ty
     let animationFrame = 0;
     let startTime:null | number = null;
 
-    const duration = 1800;
+    const duration = 2000;
     const animate = (timestamp: number) => {
       if (startTime === null) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -122,8 +122,7 @@ export default function HomeClient({ latestBlogs }: HomeClientProps) {
         </div>
       </section>
 
-      <section id="section-about"
-        className={`${servicePanelClass} border-b border-white/10`}
+      <section id="section-about" className={`${servicePanelClass} border-b border-white/10`}
       >
         <div className="!absolute !inset-0 !z-[1] !bg-cover !bg-center !transition-transform !duration-[1500ms] !ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]!"
           style={{ backgroundImage: "url('/about_bricx.jpg')" }} />
