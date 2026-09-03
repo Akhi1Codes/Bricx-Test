@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { homeFaqs } from '@/data/faqData';
@@ -20,9 +20,9 @@ interface HomeClientProps {
   latestBlogs: BlogPost[];
 }
 
-const servicePanelClass = 'group !relative !flex !h-screen !w-full !items-center !justify-center !overflow-hidden !p-0 max-md:!h-auto max-md:!min-h-[80vh] max-md:!px-4 max-md:!py-16';
-const serviceContentClass = '!relative !z-10 !mx-auto !flex !w-full !max-w-[800px] !flex-col !items-center !rounded-[10px] !border !border-white/30 !bg-[rgba(245,240,230,0.16)] !px-10 !py-14 !text-center !text-white !shadow-[0_10px_30px_rgba(8,13,22,0.12)] !backdrop-blur-[60px] max-md:!px-6 max-md:!py-10';
-const serviceTitleClass = '!m-0 !mb-6 !font-[var(--font-heading)] !text-[clamp(2rem,5vw,2.75rem)] !font-medium uppercase !leading-[1.25] !tracking-[0.15em] !text-white !transition-colors !duration-300 group-hover:text-[var(--accent-gold)]! max-md:!text-[1.65rem]';
+const servicePanelClass = 'group home-service-panel !relative !flex !h-screen !w-full !items-center !justify-center !overflow-hidden !p-0 max-md:!h-auto max-md:!min-h-[80vh] max-md:!px-4 max-md:!py-16';
+const serviceContentClass = 'home-service-card !relative !z-10 !mx-auto !flex !w-full !max-w-[800px] !flex-col !items-center !rounded-[10px] !border !border-white/30 !bg-[rgba(245,240,230,0.16)] !px-10 !py-14 !text-center !text-white !shadow-[0_10px_30px_rgba(8,13,22,0.12)] !backdrop-blur-[60px] max-md:!px-6 max-md:!py-10';
+const serviceTitleClass = '!m-0 !mb-6 !font-[var(--font-heading)] !text-[clamp(2rem,5vw,2.75rem)] !font-medium uppercase !leading-[1.25] !tracking-[0.15em] !text-white !transition-colors !duration-300 max-md:!text-[1.65rem]';
 const serviceDescriptionClass = '!m-0 !max-w-none !font-[var(--font-body)] !text-[clamp(0.95rem,2vw,1.1rem)] !font-light !leading-[1.9] !tracking-[0.02em] !text-white/85 !transition-colors !duration-300 group-hover:text-white/95! max-md:!text-[0.9rem]';
 const serviceLinkClass = '!relative !z-[3] !block !w-full !max-w-[900px] !px-6';
 const serviceCtaClass = '!mt-8 !inline-flex !items-center !gap-2 !border !border-[var(--accent-gold)] !bg-[var(--accent-gold)] !px-7 !py-3 !font-[Inter,sans-serif] !text-[0.8rem] !font-semibold uppercase !tracking-[0.15em] !text-[var(--primary-obsidian)] !shadow-[0_4px_15px_rgba(0,0,0,0.25)] !transition !duration-300 group-hover:-translate-y-0.5! group-hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)]!';
@@ -34,7 +34,7 @@ function AnimatedStat({ value, label, type }: { value: number; label: string; ty
     let animationFrame = 0;
     let startTime:null | number = null;
 
-    const duration = 2000;
+    const duration = 3000;
     const animate = (timestamp: number) => {
       if (startTime === null) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -124,7 +124,7 @@ export default function HomeClient({ latestBlogs }: HomeClientProps) {
 
       <section id="section-about" className={`${servicePanelClass} border-b border-white/10`}
       >
-        <div className="!absolute !inset-0 !z-[1] !bg-cover !bg-center !transition-transform !duration-[1500ms] !ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]!"
+        <div className="home-service-background !absolute !inset-0 !z-[1] !bg-cover !bg-center !transition-transform !duration-[1500ms] !ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]!"
           style={{ backgroundImage: "url('/about_bricx.jpg')" }} />
         <div className="!absolute !inset-0 !z-[2] !bg-gradient-to-b !from-[rgba(8,13,22,0.22)] !to-[rgba(8,13,22,0.42)]" />
         <Link href="/advisory"
@@ -149,7 +149,7 @@ export default function HomeClient({ latestBlogs }: HomeClientProps) {
           <Image src={service.image}
             alt={service.alt}
             fill sizes="100vw"
-            className="!z-[1] !h-full !w-full !object-cover !object-center !transition-transform !duration-[1500ms] !ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]!" /><div className={`!absolute !inset-0 !z-[2] !bg-gradient-to-b ${service.overlay}`} />
+            className="home-service-background !z-[1] !h-full !w-full !object-cover !object-center !transition-transform !duration-[1500ms] !ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]!" /><div className={`!absolute !inset-0 !z-[2] !bg-gradient-to-b ${service.overlay}`} />
           <Link href={service.href} className={serviceLinkClass}>
             <div className={`${serviceContentClass} reveal-on-scroll`}>
               <h2 className={serviceTitleClass}>{service.title}</h2>

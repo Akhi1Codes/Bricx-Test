@@ -446,7 +446,6 @@ export default function ClientWrapper({
               >
                 <span></span>
                 <span></span>
-                <span></span>
               </button>
             </div>
           </div>
@@ -555,7 +554,7 @@ export default function ClientWrapper({
               </p>
               <a
                 className="footer-map-cta"
-                href="https://share.google/K39DULny7X7xvie1S"
+                href="https://www.google.com/maps/dir//WeWork,+43,+Residency+Rd,+Shanthala+Nagar,+Ashok+Nagar,+Bengaluru,+Karnataka+560025/@12.987977,77.6219718,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bae1680b3bd0f7b:0x5466660c68f2146b!2m2!1d77.6088358!2d12.9733179?hl=en-IN&entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 rel="noopener noreferrer"
               >
